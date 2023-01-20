@@ -35,7 +35,7 @@ jobs:
           name: Package
       - run: pwd && ls -ltr
       - name: Docker Build
-        run: docker build -t ${{ vars.DOCKER_REPO_PATH }}:latest
+        run: docker build -t ${{ vars.DOCKER_REPO_PATH }}:latest .
       - name: Docker Hub Login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Docker Push
