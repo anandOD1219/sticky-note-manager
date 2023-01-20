@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - non-aot
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   mvn-build:
     runs-on: ubuntu-latest
@@ -15,9 +19,18 @@ jobs:
       - name: Maven Build
         run: mvn -B package
       - name: Copy artifacts to Staging
-        run: mkdir staging && cp target/*.jar staging
-      - name: upload artifact for usage in next step
-        uses: actions/upload-artifact@v3
-        with:
-          name: Package
-          path: staging
+        run: cd target && mv sticky-note-manager*.jar app.jar && cp app.jar ../docker
+#      - name: upload artifact for usage in next step
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: Package
+#          path: staging
+  image-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker Build
+        run: cd docker && docker build -t ${{ env.IMAGE_NAME }}
+      - name: Docker Hub Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Docker Push
+        run: docker push ${{ env.IMAGE_NAME }}
