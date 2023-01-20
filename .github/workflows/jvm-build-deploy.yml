@@ -32,7 +32,7 @@ jobs:
       - name: Download artifact from previous job
         uses: actions/download-artifact@v3
         with:
-          name: staging
+          name: Package
       - name: Docker Build
         run: docker build -t ${{ env.IMAGE_NAME }}
       - name: Docker Hub Login
