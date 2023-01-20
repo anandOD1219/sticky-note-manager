@@ -1,0 +1,23 @@
+name: jvm-build-deploy
+run-name: Build and deploy the app as a traditional JVM application
+on:
+  push:
+    branches:
+      - non-aot
+jobs:
+  mvn-build:
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.8-openjdk-18-slim
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Maven Build
+        run: mvn -B package
+      - name: Copy artifacts to Staging
+        run: mkdir staging && cp target/*.jar staging
+      - name: upload artifact for usage in next step
+        uses: actions/upload-artifact@v3
+        with:
+          name: Package
+          path: staging
