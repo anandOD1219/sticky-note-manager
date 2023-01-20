@@ -33,6 +33,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: Package
+      - run: pwd && ls -ltr
       - name: Docker Build
         run: docker build -t ${{ vars.DOCKER_REPO_PATH }}:latest
       - name: Docker Hub Login
