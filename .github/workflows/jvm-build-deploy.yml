@@ -34,8 +34,8 @@ jobs:
         with:
           name: Package
       - name: Docker Build
-        run: docker build -t ${{ env.DOCKER_REPO_PATH }}:latest
+        run: docker build -t ${{ env.DOCKER_REPO_PATH }}
       - name: Docker Hub Login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Docker Push
-        run: docker push ${{ env.IMAGE_NAME }}:latest
+        run: docker push ${{ env.IMAGE_NAME }}
