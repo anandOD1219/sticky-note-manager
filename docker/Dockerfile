@@ -5,6 +5,6 @@ RUN rm -rf /var/cache/apk/*
 
 ARG JARFILE=app.jar
 ENV JARFILEENV=/$JARFILE
-ADD target/$JARFILE /$JARFILE
+ADD $JARFILE /$JARFILE
 
 ENTRYPOINT ["sh","-c","java $JAVA_OPTIONS -jar $JARFILEENV"]
