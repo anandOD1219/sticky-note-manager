@@ -6,7 +6,7 @@ on:
       - non-aot
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: anand206/sticky-note-manager-app
 
 jobs:
   mvn-build:
@@ -34,8 +34,8 @@ jobs:
         with:
           name: Package
       - name: Docker Build
-        run: docker build -t ${{ env.IMAGE_NAME }}
+        run: docker build -t ${{ env.DOCKER_REPO_PATH }}:latest
       - name: Docker Hub Login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Docker Push
-        run: docker push ${{ env.IMAGE_NAME }}
+        run: docker push ${{ env.IMAGE_NAME }}:latest
