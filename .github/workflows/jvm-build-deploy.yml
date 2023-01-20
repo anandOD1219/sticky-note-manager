@@ -26,6 +26,7 @@ jobs:
 #          name: Package
 #          path: staging
   image-build:
+    needs: mvn-build
     runs-on: ubuntu-latest
     steps:
       - name: Docker Build
