@@ -6,6 +6,7 @@ on:
       - non-aot
 env:
   REGISTRY: ghcr.io
+  NAMESPACE: anand1219
 
 jobs:
   mvn-build:
@@ -50,8 +51,3 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-#  k8s-deploy:
-#    needs: image-build
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Azure Login
